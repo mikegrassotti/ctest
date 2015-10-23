@@ -1,13 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  body: null,
+  comment: '',
 
   actions: {
-    submit: function() {
-      var body = this.get('body');
-
-      this.sendAction('submit', { body: body });
+    submitComment() {
+      this.attrs.submitComment({ comment: this.get('comment') });
     }
   }
 });

@@ -2,38 +2,20 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('comment-form', 'Integration | Component | comment form', {
-  integration: false
+  integration: true
 });
 
-test('external action is triggered when form is submitted', function(assert) {
-  // This is important to make sure that the test fails if
-  // our assertion is never called
-  assert.expect(1);
+test('should trigger external action on form submit', function(assert) {
 
-  // Create our test double
-  var targetObject = {
-    externalAction: function(attributes) {
-      // This assertion will be called when the action is triggered
-      assert.deepEqual(attributes, { body: 'You are not a wizard!' });
-    }
-  };
+  // test double for the external action
+  this.set('externalAction', (attributes) => assert.deepEqual(attributes, { comment: 'You are not a wizard!' }, 'submitted input value gets passed to external action'));
 
-  // Creates the component
-  var component = this.subject({
-    // Sets sample data
-    body: 'You are not a wizard!',
+  this.render(hbs`{{comment-form submitComment=(action externalAction)}}`);
 
-    // Sets the targetObject to our test double
-    // (this is where sendAction will send its action)
-    targetObject: targetObject,
+  // fill out the form and force an onchange
+  this.$('textarea').val('You are not a wizard!');
+  this.$('textarea').change();
 
-    // Specifies which action to send to targetObject on submit
-    submit: 'externalAction',
-  });
-
-  // Renders the component to the page
-  this.render();
-
-  // Submits the form
-  this.$().find('input[type="submit"]').click();
+  // click the button to submit the form
+  this.$('input').click();
 });

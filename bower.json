@@ -15,7 +15,6 @@
   },
   "resolutions": {
     "ember": "2.1",
-    "ember-qunit": "0.4.13",
-    "ember": "1.13.7"
+    "ember-qunit": "0.4.13"
   }
 }

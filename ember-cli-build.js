@@ -19,5 +19,10 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
+  app.import('vendor/jquery.ui.widget.js');
+  app.import('vendor/jquery.iframe-transport.js');
+  app.import('vendor/jquery.fileupload.js');
+  app.import('bower_components/cloudinary/js/jquery.cloudinary.js');
+
   return app.toTree();
 };
